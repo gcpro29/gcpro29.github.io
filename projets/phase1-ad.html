@@ -27,14 +27,13 @@
     <div class="status-box wip">
         <span class="status-icon">&#x1F6A7;</span>
         <div>
-            <strong>Phase en cours.</strong> Le domaine <code>bleueslatitudes.local</code> est créé.
-            Un point à débloquer avant de continuer : l'accès administrateur du domaine (résolution prévue via le mode DSRM, détails plus bas). Une fois ce point réglé, je passe à la création des OU, groupes et utilisateurs.
+            <strong>Phase en cours.</strong> Domaine <code>bleueslatitudes.local</code> créé. Reste à débloquer l'accès administrateur (via le mode DSRM, voir plus bas), puis créer les OU, groupes et utilisateurs.
         </div>
     </div>
 
     <div class="block">
         <h2>Contexte</h2>
-        <p>Côté infrastructure, BleuesLatitudes part de zéro : 25 postes en groupe de travail, aucun compte centralisé, aucune sauvegarde, aucune supervision. La première brique à poser est un domaine Active Directory. C'est lui qui conditionne tout le reste : les permissions sur les fichiers (Phase 2), les GPO, le partage centralisé.</p>
+        <p>BleuesLatitudes part de zéro : 25 postes en groupe de travail, pas de gestion centralisée. Je commence par mettre en place un domaine Active Directory. C'est la base de toute la suite (partage de fichiers, GPO, etc.).</p>
     </div>
 
     <div class="block">
@@ -64,32 +63,31 @@
         <h2>Avancement détaillé</h2>
 
         <h3 style="color:#fafafa; margin-top: 0.5rem;">&#x2705; Étape 1 — Création de la VM SRV-DC01</h3>
-        <p>VM créée sous Hyper-V (Génération 2) à partir de l'ISO Windows Server 2025. J'ai choisi la version 2025 plutôt que la 2022 pour une raison simple : autant me former sur la version la plus récente, qui sera celle que je rencontrerai en entreprise.</p>
+        <p>VM créée sous Hyper-V à partir de l'ISO Windows Server 2025 (version la plus récente, autant me former dessus directement).</p>
 
         <h3 style="color:#fafafa;">&#x2705; Étape 2 — Réseau et identité</h3>
-        <p>IP fixe en 192.168.10.1/24, DNS pointé sur 127.0.0.1 (le serveur sera lui-même DNS une fois promu). J'ai renommé la machine en SRV-DC01 <em>avant</em> la promotion AD. Un point que j'ai retenu : renommer un contrôleur de domaine après coup demande des manipulations délicates, autant le faire dans le bon ordre dès le départ.</p>
+        <p>IP fixe en 192.168.10.1/24, DNS pointé sur 127.0.0.1 (le serveur sera lui-même DNS plus tard). J'ai renommé la machine en SRV-DC01 avant l'installation d'AD.</p>
 
-        <h3 style="color:#fafafa;">&#x2705; Étape 3 — Installation du rôle AD DS</h3>
-        <p>Installation du rôle AD DS depuis le Gestionnaire de serveur, puis promotion du serveur en contrôleur de domaine. Nouvelle forêt avec <code>bleueslatitudes.local</code> comme domaine racine, niveau fonctionnel Windows Server 2025. J'ai aussi défini le mot de passe DSRM (Directory Services Restore Mode), qui sert de filet de sécurité si l'accès au compte administrateur du domaine pose un jour problème. Comme on va le voir juste après, ce filet sert plus tôt que prévu.</p>
+        <h3 style="color:#fafafa;">&#x2705; Étape 3 — Installation d'Active Directory</h3>
+        <p>Installation du rôle AD DS depuis le Gestionnaire de serveur, puis promotion en contrôleur de domaine. Création du domaine <code>bleueslatitudes.local</code>. J'ai aussi défini un mot de passe DSRM, un mot de passe de secours utile en cas de problème d'accès au compte administrateur.</p>
 
         <h3 style="color:#fafafa;">&#x26A0;&#xFE0F; Point bloquant — Accès admin du domaine</h3>
-        <p>C'est ici que je rencontre la première vraie difficulté : impossible de me connecter en tant qu'administrateur du domaine, le mot de passe est refusé. Deux causes possibles : soit le compte est verrouillé suite à plusieurs tentatives, soit ce que j'ai noté ne correspond pas exactement à ce que j'ai saisi lors de la promotion.</p>
-        <p style="margin-top: 0.6rem;"><strong>Plan pour débloquer :</strong> redémarrer en mode DSRM, réinitialiser le compte Administrator via <code>net user Administrator [nouveau-mdp]</code>, puis revenir en mode normal. C'est précisément le cas d'usage pour lequel le mot de passe DSRM existe — sans lui, j'aurais dû reprendre la VM à zéro.</p>
+        <p>Au moment de me reconnecter en tant qu'administrateur du domaine, le mot de passe est refusé. C'est probablement un verrouillage de compte ou un écart entre le mot de passe noté et celui réellement saisi à la promotion.</p>
+        <p style="margin-top: 0.6rem;"><strong>Plan pour débloquer :</strong> redémarrer en mode DSRM (justement prévu pour ce genre de situation), réinitialiser le mot de passe du compte Administrator avec <code>net user Administrator [nouveau-mdp]</code>, puis revenir en mode normal.</p>
 
         <h3 style="color:#fafafa;">&#x23F3; Étape 4 — OU, groupes et utilisateurs <em>(à venir)</em></h3>
-        <p>Une fois l'accès administrateur récupéré, je structure l'annuaire avec une OU par service (Direction, Bureau d'études / Commercial, Administratif), je crée les groupes de sécurité correspondants et les comptes des 25 employés. Cette étape est essentielle car tout ce qui vient après s'appuie dessus : les permissions sur le serveur de fichiers en Phase 2, les GPO ciblées, etc.</p>
+        <p>Une fois l'accès récupéré : créer une OU par service (Direction, Bureau d'études / Commercial, Administratif), les groupes de sécurité associés, et les 25 comptes utilisateurs.</p>
 
         <h3 style="color:#fafafa;">&#x23F3; Étape 5 — Joindre PC-01 au domaine <em>(à venir)</em></h3>
-        <p>Création de la VM PC-01, configuration réseau, jonction au domaine. L'objectif : vérifier qu'un poste client peut s'authentifier sur le DC avec un compte AD — la preuve concrète que tout fonctionne bout en bout.</p>
+        <p>Créer la VM PC-01 et la joindre au domaine pour valider qu'un utilisateur peut bien se connecter avec son compte AD.</p>
     </div>
 
     <div class="block">
         <h2>Ce que je retiens</h2>
         <ul>
-            <li>AD et DNS sont indissociables : un contrôleur de domaine est obligatoirement serveur DNS de sa zone, ce n'est pas optionnel.</li>
-            <li>Promouvoir un serveur en contrôleur de domaine est une opération qui ne se défait pas à la légère, d'où l'utilité du mot de passe DSRM (que j'ai pris soin de noter correctement, lui).</li>
-            <li>L'ordre des opérations compte : adressage IP → renommage → installation du rôle → promotion. Inverser ces étapes oblige à des manipulations correctives ensuite, ce n'est jamais propre.</li>
-            <li>Le niveau fonctionnel (forêt, domaine) détermine les fonctionnalités disponibles et les versions de DC tolérées dans la forêt. Important si on envisage de faire cohabiter plusieurs versions de Windows Server par la suite.</li>
+            <li>Le DNS s'installe automatiquement avec AD : pas besoin de l'ajouter à part.</li>
+            <li>Le mot de passe DSRM est important à ne pas perdre : c'est lui qui permet de récupérer la main quand le compte admin du domaine pose problème (comme dans mon cas).</li>
+            <li>Il faut configurer l'IP fixe et renommer la machine <em>avant</em> d'installer AD, pas après.</li>
         </ul>
     </div>
 

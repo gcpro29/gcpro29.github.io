@@ -27,13 +27,13 @@
     <div class="status-box soon">
         <span class="status-icon">&#x23F3;</span>
         <div>
-            <strong>Dernière phase.</strong> Une infrastructure qui fonctionne, c'est bien. Une infrastructure qu'on peut maintenir et faire évoluer sans repartir de zéro à chaque opération, c'est mieux. C'est l'objectif ici : automatiser ce qui peut l'être, documenter, et renforcer la sécurité.
+            <strong>Dernière phase.</strong> L'objectif : automatiser ce qui peut l'être, documenter, et renforcer un peu la sécurité.
         </div>
     </div>
 
     <div class="block">
         <h2>Contexte</h2>
-        <p>À ce stade, l'infrastructure de BleuesLatitudes fonctionne. L'objectif maintenant est de la rendre <em>vivable au quotidien</em> : pouvoir créer 10 nouveaux utilisateurs en deux minutes plutôt qu'en une heure, disposer d'une documentation à jour pour ne pas dépendre de la mémoire, et limiter les erreurs côté réseau.</p>
+        <p>L'infrastructure fonctionne. Il reste à la rendre plus simple à maintenir : automatiser les tâches répétitives avec PowerShell, centraliser la doc dans un wiki, et durcir le pare-feu.</p>
     </div>
 
     <div class="block">
@@ -48,12 +48,12 @@
     <div class="block">
         <h2>Démarche prévue</h2>
         <ul>
-            <li>Un script PowerShell qui crée les 25 utilisateurs d'un coup à partir d'un CSV, avec affectation automatique aux bons groupes et aux bonnes OU. Cela évite aussi les erreurs de saisie inévitables lorsqu'on répète la même opération manuellement.</li>
-            <li>Quelques scripts utilitaires pour la maintenance : audit des comptes inactifs, rapport mensuel d'occupation des partages, sauvegarde planifiée des GPO.</li>
-            <li>Installation de BookStack sur SRV-LNX01 (avec Apache, MySQL et PHP) pour centraliser la documentation technique : procédures, schémas, et un coffre-fort pour les mots de passe (qui ne doivent jamais être stockés en clair).</li>
-            <li>Pare-feu Windows piloté par GPO, avec des règles supplémentaires si l'infrastructure évolue (par exemple en cas de découpage en VLAN par la suite).</li>
+            <li>Script PowerShell qui crée les 25 utilisateurs d'un coup à partir d'un fichier CSV, avec affectation automatique aux bons groupes et OU</li>
+            <li>Quelques scripts utilitaires : audit des comptes inactifs, rapport d'occupation des partages, sauvegarde des GPO</li>
+            <li>Installer BookStack sur SRV-LNX01 pour centraliser la documentation technique</li>
+            <li>Configurer le pare-feu Windows par GPO</li>
         </ul>
-        <p><em>Cette page sera enrichie au fur et à mesure, et les scripts seront publiés directement sur GitHub.</em></p>
+        <p><em>Page enrichie au fur et à mesure. Les scripts seront publiés sur GitHub.</em></p>
     </div>
 
     <div class="block">

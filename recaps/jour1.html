@@ -232,14 +232,8 @@
 
 <h3><span class="badge next">À résoudre</span> Accès admin du domaine bloqué</h3>
 <div class="section-box">
-    <p>Premier vrai obstacle : après le redémarrage, impossible de me reconnecter en tant qu'administrateur du domaine — mot de passe refusé, même après plusieurs tentatives.</p>
-    <p style="margin-top: 0.5rem;">Deux explications possibles :</p>
-    <ul style="margin-top: 0.3rem;">
-        <li>Compte verrouillé après plusieurs tentatives infructueuses</li>
-        <li>Le mot de passe noté ne correspond pas exactement à celui saisi lors de la promotion</li>
-    </ul>
-    <p style="margin-top: 0.6rem;"><strong>Procédure pour débloquer :</strong> redémarrer en mode DSRM (Directory Services Restore Mode), me connecter avec le mot de passe DSRM, puis réinitialiser le compte Administrator avec <code>net user Administrator [nouveau-mdp]</code>. Retour en mode normal et l'accès est rétabli.</p>
-    <p style="margin-top: 0.6rem;">L'épisode aura au moins eu le mérite de m'apprendre à quoi sert vraiment le mot de passe DSRM, et à penser à le stocker séparément la prochaine fois.</p>
+    <p>Au moment de me reconnecter en tant qu'administrateur du domaine, le mot de passe est refusé. Probablement un verrouillage de compte ou un écart entre le mot de passe noté et celui réellement saisi à la promotion.</p>
+    <p style="margin-top: 0.6rem;"><strong>Plan pour débloquer :</strong> redémarrer en mode DSRM, me connecter avec le mot de passe DSRM (justement prévu pour ça), puis réinitialiser le compte Administrator avec <code>net user Administrator [nouveau-mdp]</code> et revenir en mode normal.</p>
 </div>
 
 <!-- PLAN D'ADRESSAGE -->
