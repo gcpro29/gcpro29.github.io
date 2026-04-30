@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 1 — Active Directory | Portfolio BTS SIO SISR</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">Portfolio <span>BTS SIO SISR</span></div>
+    <nav>
+        <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="../index.html#projets" class="active">Projets</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="projet-detail">
+    <p class="breadcrumb"><a href="../index.html">Accueil</a> / <a href="../index.html#projets">Projets</a> / Phase 1</p>
+
+    <h1>Mise en place du domaine Active Directory</h1>
+    <p class="meta">Phase 1 — Les fondations de l'infrastructure BleuesLatitudes</p>
+
+    <div class="status-box wip">
+        <span class="status-icon">&#x1F6A7;</span>
+        <div>
+            <strong>Phase en cours</strong> — Domaine <code>bleueslatitudes.local</code> créé.
+            Étape suivante : création des OU, groupes et utilisateurs des 3 services.
+        </div>
+    </div>
+
+    <div class="block">
+        <h2>Contexte</h2>
+        <p>BleuesLatitudes fonctionne en groupe de travail : chaque poste est indépendant, les employés n'ont pas de compte centralisé, et la gestion informatique est inexistante. L'objectif est de mettre en place un domaine Active Directory pour centraliser la gestion des identités et des accès, et préparer le terrain pour les phases suivantes (DHCP, partage de fichiers, GPO).</p>
+    </div>
+
+    <div class="block">
+        <h2>Objectifs</h2>
+        <ul>
+            <li>Installer et configurer Windows Server 2025 (SRV-DC01)</li>
+            <li>Configurer l'adressage IP fixe sur le réseau 192.168.10.0/24</li>
+            <li>Déployer le rôle Active Directory Domain Services</li>
+            <li>Promouvoir le serveur en contrôleur de domaine — forêt <code>bleueslatitudes.local</code></li>
+            <li>Créer la structure organisationnelle (OU par service)</li>
+            <li>Créer les comptes utilisateurs et groupes</li>
+            <li>Joindre un poste client (PC-01) au domaine</li>
+        </ul>
+    </div>
+
+    <div class="block">
+        <h2>Environnement technique</h2>
+        <ul>
+            <li><strong>Hyperviseur :</strong> Hyper-V (Windows 11 Pro, hôte 24 Go DDR4)</li>
+            <li><strong>Switch virtuel :</strong> BLEUESLAT-NET (Private)</li>
+            <li><strong>VM SRV-DC01 :</strong> Génération 2 — 2 vCPU — 2 Go RAM — disque 60 Go — Windows Server 2025 Standard (Expérience utilisateur)</li>
+            <li><strong>Adressage :</strong> 192.168.10.1/24, passerelle non définie (lab isolé), DNS 127.0.0.1</li>
+        </ul>
+    </div>
+
+    <div class="block">
+        <h2>Avancement détaillé</h2>
+
+        <h3 style="color:#fafafa; margin-top: 0.5rem;">&#x2705; Étape 1 — Création de la VM SRV-DC01</h3>
+        <p>Création d'une VM Génération 2 sous Hyper-V à partir de l'ISO Windows Server 2025. Le choix de la version 2025 (au lieu de 2022) répond à une logique simple : se former sur la version la plus récente, celle que je rencontrerai en alternance.</p>
+
+        <h3 style="color:#fafafa;">&#x2705; Étape 2 — Configuration réseau et identité système</h3>
+        <p>Adresse IP fixée à 192.168.10.1/24, DNS pointé sur 127.0.0.1 (le serveur sera son propre DNS une fois promu). Renommage de la machine en SRV-DC01 (convention de nommage du projet) avant la promotion AD — étape importante : on ne renomme pas un contrôleur de domaine après coup sans précautions.</p>
+
+        <h3 style="color:#fafafa;">&#x2705; Étape 3 — Installation du rôle AD DS</h3>
+        <p>Installation du rôle Active Directory Domain Services via le Gestionnaire de serveur, puis promotion en contrôleur de domaine. Création d'une nouvelle forêt avec le domaine racine <code>bleueslatitudes.local</code> — niveau fonctionnel forêt et domaine en 2025. Définition du mot de passe DSRM (Directory Services Restore Mode), qui servira à récupérer la main en cas de problème.</p>
+
+        <h3 style="color:#fafafa;">&#x1F6A7; Étape 4 — Création des OU, groupes et utilisateurs <em>(en cours)</em></h3>
+        <p>Prochaine étape : structurer l'annuaire avec une OU par service (Direction, Bureau d'études, Administratif), créer les groupes de sécurité associés et les comptes des 25 employés. Cette structuration conditionne la suite : les permissions sur le serveur de fichiers (Phase 2) et les GPO ciblées seront appliquées via ces OU et groupes.</p>
+
+        <h3 style="color:#fafafa;">&#x23F3; Étape 5 — Jonction de PC-01 au domaine <em>(à venir)</em></h3>
+        <p>Création de la VM PC-01, configuration réseau, et jonction au domaine pour valider l'authentification centralisée.</p>
+    </div>
+
+    <div class="block">
+        <h2>Ce que j'apprends à cette étape</h2>
+        <ul>
+            <li>Le DNS est indissociable d'AD — un contrôleur de domaine est obligatoirement serveur DNS de la zone.</li>
+            <li>La promotion en contrôleur de domaine est une opération à sens unique : on ne revient pas en arrière à la légère, d'où l'intérêt du mot de passe DSRM.</li>
+            <li>L'ordre des opérations compte : adressage IP → renommage → installation du rôle → promotion. Inverser ces étapes oblige à des manipulations correctives ensuite.</li>
+            <li>Les niveaux fonctionnels (forêt, domaine) déterminent les fonctionnalités disponibles et les versions de DC tolérées dans la forêt.</li>
+        </ul>
+    </div>
+
+    <div class="block">
+        <h2>Compétences mobilisées</h2>
+        <ul>
+            <li>Installer et configurer un serveur Windows</li>
+            <li>Administrer Active Directory</li>
+            <li>Gérer les utilisateurs et les groupes</li>
+            <li>Configurer l'adressage réseau</li>
+            <li>Mettre en place une convention de nommage et un plan d'adressage</li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    Portfolio BTS SIO SISR &mdash; BleuesLatitudes &mdash; 2026
+</footer>
+
+</body>
+</html>

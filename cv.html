@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CV de Gauthier Chauvet — Alternant BTS SIO SISR (Solutions d'Infrastructure, Systèmes et Réseaux). Active Directory, Windows Server, Hyper-V, Linux, PowerShell.">
+    <title>CV — Gauthier Chauvet — Alternant BTS SIO SISR</title>
+    <style>
+        /* ===== RESET & BASE ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --accent: #1e40af;
+            --text: #0f172a;
+            --muted: #475569;
+            --border: #e2e8f0;
+            --bg: #f8fafc;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.55;
+            font-size: 14px;
+        }
+
+        /* ===== ACTIONS BAR (écran uniquement) ===== */
+        .actions {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .actions .left a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .actions .left a:hover { text-decoration: underline; }
+
+        .actions .right {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .actions button {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 0.55rem 1.1rem;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .actions button:hover { background: #1e3a8a; }
+
+        .actions .download-btn {
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            padding: 0.55rem 1.1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .actions .download-btn:hover { background: #1e3a8a; }
+
+        .actions .hint {
+            font-size: 0.8rem;
+            color: var(--muted);
+            max-width: 380px;
+        }
+
+        .actions .hint code {
+            background: #f1f5f9;
+            padding: 0.1rem 0.35rem;
+            border-radius: 3px;
+            font-size: 0.78rem;
+            color: var(--accent);
+        }
+
+        /* ===== CV PAGE ===== */
+        .cv {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #fff;
+            padding: 2.8rem 3rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border-radius: 4px;
+        }
+
+        /* ===== HEADER ===== */
+        .cv-header {
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 1rem;
+            margin-bottom: 1.4rem;
+        }
+
+        .cv-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.5px;
+            margin-bottom: 0.15rem;
+        }
+
+        .cv-header .title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.6rem;
+        }
+
+        .cv-header .contact {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .cv-header .contact span {
+            display: inline-block;
+            margin-right: 1.2rem;
+        }
+
+        .cv-header .contact a {
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        .cv-header .contact a:hover { color: var(--accent); }
+
+        /* ===== SECTIONS ===== */
+        .cv section {
+            margin-bottom: 1.3rem;
+        }
+
+        .cv section h2 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.6rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cv p {
+            font-size: 0.92rem;
+            color: var(--text);
+            margin-bottom: 0.4rem;
+        }
+
+        .cv p.lead {
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+
+        /* ===== EXPERIENCE / FORMATION / PROJETS ===== */
+        .item {
+            margin-bottom: 0.85rem;
+        }
+
+        .item:last-child { margin-bottom: 0; }
+
+        .item-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .item-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .item-org {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .item-org strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .item-date {
+            font-size: 0.82rem;
+            color: var(--muted);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .item ul {
+            margin-top: 0.3rem;
+            padding-left: 1.1rem;
+        }
+
+        .item ul li {
+            font-size: 0.88rem;
+            color: var(--text);
+            margin-bottom: 0.15rem;
+            line-height: 1.5;
+        }
+
+        /* ===== COMPETENCES ===== */
+        .skills-group {
+            margin-bottom: 0.5rem;
+        }
+
+        .skills-group:last-child { margin-bottom: 0; }
+
+        .skills-label {
+            font-weight: 700;
+            color: var(--text);
+            font-size: 0.9rem;
+            display: inline;
+        }
+
+        .skills-list {
+            font-size: 0.9rem;
+            color: var(--text);
+            display: inline;
+        }
+
+        /* ===== LANGUES / CENTRES INTERET ===== */
+        .inline-list {
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .inline-list li {
+            list-style: none;
+            margin-bottom: 0.25rem;
+        }
+
+        .inline-list li strong {
+            font-weight: 700;
+        }
+
+        /* ===== PRINT (PDF / ATS) ===== */
+        @media print {
+            @page {
+                size: A4;
+                margin: 8mm 13mm 5mm 13mm;
+            }
+
+            body {
+                background: #fff;
+                font-size: 9.25pt;
+                line-height: 1.25;
+                color: #000;
+            }
+
+            .actions { display: none !important; }
+
+            .cv {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .cv-header {
+                border-bottom: 2px solid #000;
+                margin-bottom: 0.55rem;
+                padding-bottom: 0.4rem;
+            }
+
+            .cv-header h1 { font-size: 18pt; margin-bottom: 0.05rem; }
+            .cv-header .title { color: #000; font-size: 10.5pt; margin-bottom: 0.35rem; }
+            .cv-header .contact, .cv-header .contact a { color: #000; line-height: 1.5; }
+
+            .cv section { margin-bottom: 0.25rem; }
+            .cv section h2 {
+                color: #000;
+                border-bottom: 1px solid #000;
+                font-size: 8.75pt;
+                margin-bottom: 0.18rem;
+                padding-bottom: 0.1rem;
+            }
+
+            .cv .item { margin-bottom: 0.3rem; }
+            .cv .item ul { margin-top: 0.1rem; }
+            .cv .item ul li { margin-bottom: 0.03rem; }
+
+            .cv .skills-group { margin-bottom: 0.18rem; }
+
+            .cv p, .cv p.lead, .item-title, .item ul li, .skills-list, .skills-label, .inline-list { color: #000; }
+            .item-org, .item-date { color: #333; }
+
+            a { color: #000 !important; text-decoration: none !important; }
+
+            .cv .item { page-break-inside: avoid; }
+        }
+
+        @media (max-width: 700px) {
+            .cv { padding: 1.8rem 1.4rem; margin: 1rem; }
+            .cv-header h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- BARRE D'ACTIONS (cachée à l'impression) -->
+<div class="actions">
+    <div class="left">
+        <a href="index.html">&larr; Retour au portfolio</a>
+    </div>
+    <div class="right">
+        <a href="CV-Gauthier-Chauvet.pdf" download class="download-btn">&#x2B07; Télécharger le CV (PDF)</a>
+    </div>
+</div>
+
+<!-- CV -->
+<article class="cv">
+
+    <header class="cv-header">
+        <h1>Gauthier Chauvet</h1>
+        <div class="title">Alternant BTS SIO SISR</div>
+        <div class="contact">
+            <span>13670 Saint-Andiol</span>
+            <span>06 59 58 52 00</span>
+            <span><a href="mailto:gauthier.chauvetpro@gmail.com">gauthier.chauvetpro@gmail.com</a></span>
+            <br>
+            <span>Né le 29/04/2003</span>
+            <span>Permis B — véhiculé</span>
+        </div>
+    </header>
+
+    <!-- PROFIL -->
+    <section>
+        <h2>Profil</h2>
+        <p class="lead">En reconversion vers les métiers de l'infrastructure, je prépare un BTS SIO option SISR en alternance. Je construis en autonomie un laboratoire complet reproduisant l'infrastructure d'une PME de 25 salariés : Active Directory, services réseau (DNS, DHCP), serveur de fichiers, environnement Linux, supervision et automatisation PowerShell. Motivé et rigoureux, je cherche une entreprise pour mettre cette dynamique au service d'une équipe IT.</p>
+    </section>
+
+    <!-- COMPETENCES -->
+    <section>
+        <h2>Compétences techniques</h2>
+
+        <div class="skills-group">
+            <span class="skills-label">Systèmes :</span>
+            <span class="skills-list">Windows Server 2025, Active Directory (AD DS), Hyper-V, virtualisation, Debian 12, administration Linux (bases).</span>
+        </div>
+
+        <div class="skills-group">
+            <span class="skills-label">Réseau :</span>
+            <span class="skills-list">TCP/IP, adressage et sous-réseaux, DNS, DHCP, configuration de switch virtuel, segmentation réseau.</span>
+        </div>
+
+        <div class="skills-group">
+            <span class="skills-label">Sécurité &amp; gestion :</span>
+            <span class="skills-list">Stratégies de groupe (GPO), permissions NTFS, comptes et groupes AD, pare-feu Windows, plan de sauvegarde.</span>
+        </div>
+
+        <div class="skills-group">
+            <span class="skills-label">Scripting &amp; outils :</span>
+            <span class="skills-list">PowerShell (initiation), supervision Zabbix, services web Apache, BookStack, outils d'IA appliqués à l'apprentissage technique (ChatGPT, Claude).</span>
+        </div>
+
+        <div class="skills-group">
+            <span class="skills-label">Bureautique :</span>
+            <span class="skills-list">Microsoft Office (Word, Excel), LibreOffice.</span>
+        </div>
+    </section>
+
+    <section>
+        <h2>Compétences personnelles</h2>
+        <p>Autonomie · Sens de l'initiative · Rigueur · Sens des responsabilités · Capacité d'apprentissage rapide · Relation client · Esprit d'équipe.</p>
+    </section>
+
+    <!-- PROJET PERSONNEL -->
+    <section>
+        <h2>Projet personnel</h2>
+        <div class="item">
+            <div class="item-head">
+                <div>
+                    <span class="item-title">Lab d'infrastructure complète — Projet « BleuesLatitudes »</span>
+                </div>
+                <span class="item-date">2026 — en cours</span>
+            </div>
+            <div class="item-org">Infrastructure simulée pour PME de 25 salariés (3 services métier)</div>
+            <ul>
+                <li>Conception d'une infrastructure complète sur Hyper-V : 1 contrôleur de domaine Windows Server 2025, 1 serveur de fichiers, 1 serveur Linux Debian, 1 poste client.</li>
+                <li>Mise en place du domaine Active Directory bleueslatitudes.local, structuration en unités d'organisation par service, gestion des comptes et groupes.</li>
+                <li>Plan d'adressage 192.168.10.0/24, configuration DNS et DHCP centralisés.</li>
+                <li>Étapes planifiées : partage de fichiers avec droits NTFS et GPO, supervision Zabbix, plan de sauvegarde, automatisation PowerShell, wiki interne BookStack.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section>
+        <h2>Expérience professionnelle</h2>
+
+        <div class="item">
+            <div class="item-head">
+                <div>
+                    <span class="item-title">Manutention &amp; préparation de commandes</span>
+                    <span class="item-org">— <strong>Supplay</strong>, intérim</span>
+                </div>
+                <span class="item-date">01/2026 – 06/2026</span>
+            </div>
+            <ul>
+                <li>Adaptation rapide à des environnements clients variés et à leurs outils informatiques de gestion (picking, scan, WMS).</li>
+            </ul>
+        </div>
+
+        <div class="item">
+            <div class="item-head">
+                <div>
+                    <span class="item-title">Agent d'accueil</span>
+                    <span class="item-org">— <strong>Basic-Fit</strong>, CDI</span>
+                </div>
+                <span class="item-date">10/2024 – 12/2025</span>
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="item-head">
+                <div>
+                    <span class="item-title">Manutentionnaire (saisonnier)</span>
+                    <span class="item-org">— <strong>Bernard Chiron SAS</strong>, intérim — étés 2021-2023</span>
+                </div>
+                <span class="item-date">06/2021 – 08/2023</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMATION -->
+    <section>
+        <h2>Formation</h2>
+
+        <div class="item">
+            <div class="item-head">
+                <div>
+                    <span class="item-title">BTS SIO option SISR</span>
+                    <span class="item-org">— <strong>Studi</strong>, à distance, en alternance</span>
+                </div>
+                <span class="item-date">démarrage 07–08/2026</span>
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="item-head">
+                <div>
+                    <span class="item-title">Licence de Psychologie — L2 validée (L1 redoublée)</span>
+                    <span class="item-org">— <strong>Aix-Marseille Université</strong></span>
+                </div>
+                <span class="item-date">09/2021 – 06/2024</span>
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="item-head">
+                <div>
+                    <span class="item-title">Baccalauréat général</span>
+                    <span class="item-org">— <strong>Lycée Ismaël Dauphin</strong>, Cavaillon</span>
+                </div>
+                <span class="item-date">09/2019 – 06/2021</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- LANGUES & CENTRES D'INTERET -->
+    <section>
+        <h2>Langues &amp; centres d'intérêt</h2>
+        <p><strong>Langues :</strong> Français (langue maternelle) · Anglais B2 (intermédiaire supérieur) · Espagnol A1 (débutant).</p>
+        <p><strong>Loisirs :</strong> Parachutisme (FFP) · Tir sportif (FFT) · Ski · Randonnée et bivouac.</p>
+    </section>
+
+</article>
+
+</body>
+</html>

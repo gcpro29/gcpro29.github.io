@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>BleuesLatitudes — Jour 1</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            color: #1a1a1a;
+            padding: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.3rem;
+            color: #0f172a;
+        }
+        .date {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+        }
+        h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-top: 2rem;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid #3b82f6;
+            display: inline-block;
+        }
+        h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #334155;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        p, li {
+            color: #475569;
+            font-size: 0.95rem;
+        }
+        ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        li { margin-bottom: 0.4rem; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem;
+            font-size: 0.9rem;
+        }
+        th {
+            background: #f1f5f9;
+            color: #0f172a;
+            font-weight: 600;
+            text-align: left;
+            padding: 0.7rem 1rem;
+            border: 1px solid #e2e8f0;
+        }
+        td {
+            padding: 0.6rem 1rem;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+        }
+        .badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #2563eb;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.2rem 0.7rem;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .badge.done {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+        .badge.next {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        .section-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        /* === INFRA SCHEMA === */
+        .infra-schema {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2.5rem 1rem;
+            background: #0f172a;
+            border-radius: 16px;
+            margin: 1rem 0;
+        }
+        .infra-node {
+            background: #1e293b;
+            border: 2px solid #334155;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            min-width: 170px;
+        }
+        .infra-node .node-icon { font-size: 1.8rem; margin-bottom: 0.3rem; }
+        .infra-node .node-name { font-weight: 700; color: #f8fafc; font-size: 0.95rem; }
+        .infra-node .node-ip { color: #94a3b8; font-size: 0.78rem; font-family: 'Consolas', monospace; margin-top: 0.15rem; }
+        .infra-node .node-os { color: #64748b; font-size: 0.75rem; margin-top: 0.15rem; }
+        .infra-node .node-roles { font-size: 0.75rem; margin-top: 0.35rem; font-weight: 600; }
+
+        .infra-node.internet { border-color: #3b82f6; background: #172554; }
+        .infra-node.internet .node-roles { color: #60a5fa; }
+        .infra-node.dc { border-color: #3b82f6; background: #1e3a5f; }
+        .infra-node.dc .node-roles { color: #60a5fa; }
+        .infra-node.fs { border-color: #8b5cf6; background: #2e1065; }
+        .infra-node.fs .node-roles { color: #a78bfa; }
+        .infra-node.linux { border-color: #22c55e; background: #052e16; }
+        .infra-node.linux .node-roles { color: #4ade80; }
+        .infra-node.client { border-color: #f59e0b; background: #451a03; }
+        .infra-node.client .node-roles { color: #fbbf24; }
+
+        .infra-line { width: 2px; height: 28px; background: #3b82f6; }
+        .infra-line.short { height: 18px; }
+        .infra-network-bar {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.4rem 2.5rem;
+            border-radius: 20px;
+            margin: 0.3rem 0;
+        }
+        .infra-row {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.3rem;
+        }
+        .infra-branch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            color: #94a3b8;
+            font-size: 0.82rem;
+            text-align: center;
+        }
+        @media print {
+            body { padding: 1.5rem; }
+            .infra-schema, .infra-node, .infra-network-bar, .infra-line { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Projet BleuesLatitudes — Jour 1</h1>
+<p class="date">12 mars 2026 — Portfolio BTS SIO SISR</p>
+
+<!-- CONTEXTE -->
+<h2>Contexte du projet</h2>
+<div class="section-box">
+    <p><strong>BleuesLatitudes</strong> est une PME de 25 employés spécialisée dans la fabrication et l'installation de piscines (piscinier). L'entreprise ne dispose d'aucune infrastructure informatique centralisée : les postes fonctionnent en groupe de travail, sans gestion des utilisateurs, sans sauvegarde, sans supervision.</p>
+    <p style="margin-top: 0.5rem;"><strong>Mission :</strong> Concevoir et déployer l'ensemble de l'infrastructure informatique.</p>
+</div>
+
+<table>
+    <tr><th>Service</th><th>Effectif</th></tr>
+    <tr><td>Direction</td><td>3</td></tr>
+    <tr><td>Bureau d'études / Commercial</td><td>12</td></tr>
+    <tr><td>Administratif / Compta</td><td>10</td></tr>
+</table>
+
+<!-- CE QUI A ETE FAIT -->
+<h2>Réalisations du Jour 1</h2>
+
+<h3><span class="badge done">Fait</span> Préparation de l'environnement Hyper-V</h3>
+<ul>
+    <li>Réinitialisation complète de Hyper-V (suppression de 5 anciennes VMs et du switch LAB-NET)</li>
+    <li>Création du switch virtuel interne <strong>LAB-BLEUESLATITUDES</strong></li>
+</ul>
+
+<h3><span class="badge done">Fait</span> Création de la VM SRV-DC01</h3>
+<table>
+    <tr><th>Paramètre</th><th>Valeur</th></tr>
+    <tr><td>Nom</td><td>SRV-DC01</td></tr>
+    <tr><td>Génération</td><td>2</td></tr>
+    <tr><td>RAM</td><td>2 Go</td></tr>
+    <tr><td>Processeurs</td><td>2 vCPU</td></tr>
+    <tr><td>Disque dur</td><td>60 Go (VHDX)</td></tr>
+    <tr><td>Stockage</td><td>E:\VM\Hyper V\SRV-DC01</td></tr>
+    <tr><td>Réseau</td><td>LAB-BLEUESLATITUDES</td></tr>
+    <tr><td>OS</td><td>Windows Server 2022 Standard (Expérience de bureau)</td></tr>
+</table>
+
+<h3><span class="badge done">Fait</span> Configuration réseau</h3>
+<table>
+    <tr><th>Paramètre</th><th>Valeur</th></tr>
+    <tr><td>Adresse IP</td><td>192.168.10.1</td></tr>
+    <tr><td>Masque</td><td>255.255.255.0</td></tr>
+    <tr><td>Passerelle</td><td>—</td></tr>
+    <tr><td>DNS préféré</td><td>127.0.0.1 (lui-même, car il sera serveur DNS)</td></tr>
+</table>
+
+<h3><span class="badge done">Fait</span> Installation d'Active Directory</h3>
+<ul>
+    <li>Rôle <strong>AD DS</strong> installé via le Gestionnaire de serveur</li>
+    <li>Serveur promu en <strong>contrôleur de domaine</strong></li>
+    <li>Nouvelle forêt créée : <strong>bleueslatitudes.local</strong></li>
+    <li>Rôle <strong>DNS</strong> installé automatiquement avec AD</li>
+    <li>Connexion vérifiée : écran affiche "Connectez-vous à BLEUESLATITUDES"</li>
+</ul>
+
+<!-- PLAN D'ADRESSAGE -->
+<h2>Plan d'adressage réseau</h2>
+<table>
+    <tr><th>Machine</th><th>IP</th><th>Rôle</th></tr>
+    <tr><td>SRV-DC01</td><td>192.168.10.1</td><td>Active Directory, DNS, DHCP</td></tr>
+    <tr><td>SRV-FS01</td><td>192.168.10.10</td><td>Serveur de fichiers, Sauvegarde</td></tr>
+    <tr><td>SRV-LNX01</td><td>192.168.10.11</td><td>Web, Zabbix, Wiki</td></tr>
+    <tr><td>PC-01</td><td>DHCP (192.168.10.100-200)</td><td>Poste client</td></tr>
+</table>
+
+<!-- SCHEMA -->
+<h2>Schéma logique de l'infrastructure</h2>
+<div class="infra-schema">
+    <!-- Internet -->
+    <div class="infra-node internet">
+        <div class="node-icon">&#x1F310;</div>
+        <div class="node-name">INTERNET</div>
+    </div>
+    <div class="infra-line"></div>
+
+    <!-- DC01 -->
+    <div class="infra-node dc">
+        <div class="node-icon">&#x1F5A5;</div>
+        <div class="node-name">SRV-DC01</div>
+        <div class="node-ip">192.168.10.1</div>
+        <div class="node-os">Windows Server 2022</div>
+        <div class="node-roles">Active Directory · DNS · DHCP</div>
+    </div>
+    <div class="infra-line"></div>
+
+    <!-- Barre réseau -->
+    <div class="infra-network-bar">Réseau BleuesLatitudes — 192.168.10.0/24</div>
+
+    <!-- Machines -->
+    <div class="infra-row">
+        <div class="infra-branch">
+            <div class="infra-line short"></div>
+            <div class="infra-node fs">
+                <div class="node-icon">&#x1F4C1;</div>
+                <div class="node-name">SRV-FS01</div>
+                <div class="node-ip">192.168.10.10</div>
+                <div class="node-os">Windows Server 2022</div>
+                <div class="node-roles">Fichiers · Sauvegarde</div>
+            </div>
+        </div>
+        <div class="infra-branch">
+            <div class="infra-line short"></div>
+            <div class="infra-node linux">
+                <div class="node-icon">&#x1F427;</div>
+                <div class="node-name">SRV-LNX01</div>
+                <div class="node-ip">192.168.10.11</div>
+                <div class="node-os">Debian 12</div>
+                <div class="node-roles">Web · Zabbix · Wiki</div>
+            </div>
+        </div>
+        <div class="infra-branch">
+            <div class="infra-line short"></div>
+            <div class="infra-node client">
+                <div class="node-icon">&#x1F4BB;</div>
+                <div class="node-name">PC-01</div>
+                <div class="node-ip">DHCP (.100-.200)</div>
+                <div class="node-os">Windows 11</div>
+                <div class="node-roles">Poste client</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PROCHAINE ETAPE -->
+<h2>Prochaine étape — Jour 2</h2>
+<div class="section-box">
+    <p><span class="badge next">À faire</span></p>
+    <ul style="margin-top: 0.5rem;">
+        <li>Créer les 3 Unités d'Organisation (Direction, Commercial, Administratif)</li>
+        <li>Créer les groupes de sécurité (GRP_Direction, GRP_Commercial, GRP_Administratif)</li>
+        <li>Créer les 25 utilisateurs (script PowerShell)</li>
+        <li>Créer la VM PC-01 et la joindre au domaine</li>
+    </ul>
+</div>
+
+<!-- SITE PORTFOLIO -->
+<h2>Portfolio</h2>
+<div class="section-box">
+    <p>Site portfolio créé en HTML/CSS (design moderne, dark theme, glassmorphism).</p>
+    <p>Emplacement : <strong>C:\Users\sayzo\Documents\Portfolio\</strong></p>
+    <p>Pages projets prêtes à remplir pour chaque phase.</p>
+</div>
+
+<div class="footer">
+    BleuesLatitudes — Projet BTS SIO SISR — 2026
+</div>
+
+</body>
+</html>

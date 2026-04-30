@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio BTS SIO SISR</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">Portfolio <span>BTS SIO SISR</span></div>
+    <nav>
+        <ul>
+            <li><a href="index.html" class="active">Accueil</a></li>
+            <li><a href="#profil">Profil</a></li>
+            <li><a href="#contexte">Contexte</a></li>
+            <li><a href="#infra">Infrastructure</a></li>
+            <li><a href="#projets">Projets</a></li>
+            <li><a href="#competences">Compétences</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>Projet d'infrastructure <span>BleuesLatitudes</span></h1>
+    <p>Conception et déploiement d'une infrastructure réseau complète pour une PME de 25 employés spécialisée dans la fabrication et l'installation de piscines.</p>
+</div>
+
+<!-- BANNIERE PROGRESSION -->
+<div class="progress-banner">
+    <div class="progress-banner-inner">
+        <div class="progress-icon">&#x1F6A7;</div>
+        <div class="progress-text">
+            <strong>Lab en cours — Phase 1 / 4</strong>
+            <span>Projet personnel réalisé en autonomie dans le cadre de ma préparation au BTS SIO SISR. Mis à jour régulièrement.</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-bar-fill" style="width: 25%;"></div>
+        </div>
+        <div class="progress-percent">25%</div>
+    </div>
+</div>
+
+<!-- PROFIL / A PROPOS -->
+<section id="profil">
+    <h2>À propos</h2>
+    <p class="subtitle">Qui se cache derrière ce portfolio</p>
+
+    <div class="profil-card">
+        <div class="profil-avatar">G</div>
+        <div class="profil-info">
+            <h3>Gauthier Chauvet</h3>
+            <p class="profil-role">Futur étudiant BTS SIO SISR — Recherche alternance</p>
+            <p>Passionné d'infrastructure et de systèmes, je prépare un BTS SIO option SISR en alternance, avec un démarrage prévu mi-juillet / début août. Je construis ce lab personnel pour me former en autonomie sur les fondamentaux du métier : Active Directory, services réseau, Linux, supervision, automatisation.</p>
+            <div class="profil-links">
+                <a href="mailto:gauthier.chauvetpro@gmail.com" class="profil-link">&#x2709;&#xFE0F; gauthier.chauvetpro@gmail.com</a>
+                <a href="cv.html" class="profil-link">&#x1F4C4; Voir mon CV</a>
+                <a href="recaps/jour1.html" class="profil-link">&#x1F4D3; Journal de bord</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTEXTE ENTREPRISE -->
+<section id="contexte">
+    <h2>Contexte de l'entreprise</h2>
+    <p class="subtitle">Présentation de BleuesLatitudes et de la situation initiale</p>
+
+    <div class="entreprise-card">
+        <div class="info-group">
+            <h3>Entreprise</h3>
+            <p>BleuesLatitudes — Piscinier</p>
+        </div>
+        <div class="info-group">
+            <h3>Effectif</h3>
+            <p>25 employés</p>
+        </div>
+        <div class="info-group">
+            <h3>Services</h3>
+            <p>Direction (3) · Bureau d'études / Commercial (12) · Administratif / Compta (10)</p>
+        </div>
+        <div class="info-group">
+            <h3>Situation initiale</h3>
+            <p>Aucune infrastructure centralisée. Postes en groupe de travail, pas de gestion des utilisateurs, pas de sauvegarde, pas de supervision.</p>
+        </div>
+        <div class="info-group">
+            <h3>Besoin</h3>
+            <p>Centraliser la gestion des utilisateurs, sécuriser les données (devis, plans, comptabilité), mettre en place un partage de fichiers structuré et une supervision de l'infrastructure.</p>
+        </div>
+        <div class="info-group">
+            <h3>Mission</h3>
+            <p>Concevoir et déployer l'ensemble de l'infrastructure informatique de l'entreprise.</p>
+        </div>
+    </div>
+</section>
+
+<!-- SCHEMA RESEAU -->
+<section id="infra">
+    <h2>Infrastructure réseau</h2>
+    <p class="subtitle">Schéma logique de l'infrastructure cible (réseau 192.168.10.0/24 — switch virtuel BLEUESLAT-NET)</p>
+
+    <div class="infra-schema">
+        <!-- Internet -->
+        <div class="infra-node internet">
+            <div class="node-icon">&#x1F310;</div>
+            <div class="node-name">INTERNET</div>
+        </div>
+        <div class="infra-line vertical"></div>
+
+        <!-- DC01 -->
+        <div class="infra-node server main-server">
+            <div class="node-icon">&#x1F5A5;</div>
+            <div class="node-name">SRV-DC01</div>
+            <div class="node-os">Windows Server 2025</div>
+            <div class="node-roles">Active Directory · DNS · DHCP</div>
+        </div>
+        <div class="infra-line vertical"></div>
+
+        <!-- Ligne horizontale réseau -->
+        <div class="infra-network-bar">
+            <span>Réseau BleuesLatitudes</span>
+        </div>
+
+        <!-- Machines connectées -->
+        <div class="infra-row">
+            <div class="infra-branch">
+                <div class="infra-line vertical short"></div>
+                <div class="infra-node server">
+                    <div class="node-icon">&#x1F4C1;</div>
+                    <div class="node-name">SRV-FS01</div>
+                    <div class="node-os">Windows Server 2025</div>
+                    <div class="node-roles">Fichiers · Sauvegarde</div>
+                </div>
+            </div>
+            <div class="infra-branch">
+                <div class="infra-line vertical short"></div>
+                <div class="infra-node server linux">
+                    <div class="node-icon">&#x1F427;</div>
+                    <div class="node-name">SRV-LNX01</div>
+                    <div class="node-os">Debian 12</div>
+                    <div class="node-roles">Web · Zabbix · Wiki</div>
+                </div>
+            </div>
+            <div class="infra-branch">
+                <div class="infra-line vertical short"></div>
+                <div class="infra-node client">
+                    <div class="node-icon">&#x1F4BB;</div>
+                    <div class="node-name">PC-01</div>
+                    <div class="node-os">Windows 10/11</div>
+                    <div class="node-roles">Poste client</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROJETS -->
+<section id="projets">
+    <h2>Projets réalisés</h2>
+    <p class="subtitle">Chaque projet répond à un besoin concret de BleuesLatitudes</p>
+
+    <div class="projets-grid">
+
+        <!-- Phase 1 -->
+        <div class="projet-card">
+            <span class="phase-tag wip">Phase 1 — En cours</span>
+            <h3>Mise en place du domaine Active Directory</h3>
+            <p>Installation de Windows Server 2025, déploiement d'Active Directory, création des utilisateurs et groupes par service, jonction des postes au domaine.</p>
+            <a href="projets/phase1-ad.html" class="btn">Voir l'avancement &rarr;</a>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="projet-card">
+            <span class="phase-tag">Phase 2 — À venir</span>
+            <h3>Services réseau et partage de fichiers</h3>
+            <p>Configuration DNS et DHCP, mise en place du serveur de fichiers avec droits NTFS par service, déploiement de stratégies de groupe (GPO).</p>
+            <a href="projets/phase2-services.html" class="btn">Voir le périmètre &rarr;</a>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="projet-card">
+            <span class="phase-tag">Phase 3 — À venir</span>
+            <h3>Serveur Linux, supervision et sauvegarde</h3>
+            <p>Installation de Debian 12, déploiement d'un serveur web, mise en place de Zabbix pour la supervision et plan de sauvegarde.</p>
+            <a href="projets/phase3-linux.html" class="btn">Voir le périmètre &rarr;</a>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="projet-card">
+            <span class="phase-tag">Phase 4 — À venir</span>
+            <h3>Automatisation et documentation</h3>
+            <p>Scripts PowerShell pour la gestion des utilisateurs, déploiement d'un wiki interne BookStack, mise en place du filtrage réseau.</p>
+            <a href="projets/phase4-auto.html" class="btn">Voir le périmètre &rarr;</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- COMPETENCES -->
+<section id="competences">
+    <h2>Compétences mobilisées</h2>
+    <p class="subtitle">Compétences du référentiel BTS SIO SISR mises en pratique</p>
+
+    <div class="competences-list">
+        <div class="competence-item">
+            <div class="icon">&#x1F5A5;</div>
+            <div class="label">Administration Windows Server</div>
+        </div>
+        <div class="competence-item">
+            <div class="icon">&#x1F5A7;</div>
+            <div class="label">Services réseau (AD, DNS, DHCP)</div>
+        </div>
+        <div class="competence-item">
+            <div class="icon">&#x1F4C1;</div>
+            <div class="label">Gestion des fichiers et permissions</div>
+        </div>
+        <div class="competence-item">
+            <div class="icon">&#x1F427;</div>
+            <div class="label">Administration Linux (Debian)</div>
+        </div>
+        <div class="competence-item">
+            <div class="icon">&#x1F4CA;</div>
+            <div class="label">Supervision (Zabbix)</div>
+        </div>
+        <div class="competence-item">
+            <div class="icon">&#x1F4BE;</div>
+            <div class="label">Sauvegarde et PRA</div>
+        </div>
+        <div class="competence-item">
+            <div class="icon">&#x1F510;</div>
+            <div class="label">Sécurité et GPO</div>
+        </div>
+        <div class="competence-item">
+            <div class="icon">&#x2699;</div>
+            <div class="label">Automatisation (PowerShell)</div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    Portfolio BTS SIO SISR &mdash; BleuesLatitudes &mdash; 2026
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 4 — Automatisation | Portfolio BTS SIO SISR</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">Portfolio <span>BTS SIO SISR</span></div>
+    <nav>
+        <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="../index.html#projets" class="active">Projets</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="projet-detail">
+    <p class="breadcrumb"><a href="../index.html">Accueil</a> / <a href="../index.html#projets">Projets</a> / Phase 4</p>
+
+    <h1>Automatisation et documentation</h1>
+    <p class="meta">Phase 4 — La cerise sur le gâteau</p>
+
+    <div class="status-box soon">
+        <span class="status-icon">&#x23F3;</span>
+        <div>
+            <strong>Phase à venir</strong> — Phase finale du projet, qui transforme l'infra fonctionnelle en infra <em>maintenable</em> : automatisation, documentation centralisée, durcissement.
+        </div>
+    </div>
+
+    <div class="block">
+        <h2>Contexte</h2>
+        <p>L'infrastructure de BleuesLatitudes est complète et fonctionnelle. Pour gagner en efficacité et en maintenabilité, on automatise les tâches récurrentes avec PowerShell, on centralise la documentation technique dans un wiki interne, et on renforce la sécurité avec du filtrage réseau.</p>
+    </div>
+
+    <div class="block">
+        <h2>Objectifs</h2>
+        <ul>
+            <li>Créer des scripts PowerShell pour la gestion automatisée des utilisateurs</li>
+            <li>Déployer un wiki interne BookStack sur SRV-LNX01</li>
+            <li>Mettre en place un filtrage réseau / pare-feu</li>
+        </ul>
+    </div>
+
+    <div class="block">
+        <h2>Démarche prévue</h2>
+        <ul>
+            <li>Script PowerShell de création en masse des utilisateurs depuis un CSV (les 25 employés des 3 services), avec affectation automatique aux bons groupes et OU</li>
+            <li>Scripts utilitaires : audit de comptes inactifs, rapport mensuel d'occupation des partages, sauvegarde GPO planifiée</li>
+            <li>Déploiement de BookStack sur SRV-LNX01 (Apache + MySQL + PHP) pour héberger la documentation technique de l'infra : procédures, schémas, mots de passe (sous coffre-fort)</li>
+            <li>Configuration du Pare-feu Windows par GPO et règles inter-VLAN si évolution future</li>
+        </ul>
+        <p><em>Cette section sera enrichie avec les captures d'écran, les scripts publiés sur GitHub et les choix techniques argumentés au fur et à mesure de la réalisation.</em></p>
+    </div>
+
+    <div class="block">
+        <h2>Compétences mobilisées</h2>
+        <ul>
+            <li>Écrire des scripts d'automatisation (PowerShell)</li>
+            <li>Déployer une application web (BookStack)</li>
+            <li>Configurer le filtrage réseau</li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    Portfolio BTS SIO SISR &mdash; BleuesLatitudes &mdash; 2026
+</footer>
+
+</body>
+</html>

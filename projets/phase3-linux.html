@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 3 — Linux, supervision et sauvegarde | Portfolio BTS SIO SISR</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">Portfolio <span>BTS SIO SISR</span></div>
+    <nav>
+        <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="../index.html#projets" class="active">Projets</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="projet-detail">
+    <p class="breadcrumb"><a href="../index.html">Accueil</a> / <a href="../index.html#projets">Projets</a> / Phase 3</p>
+
+    <h1>Serveur Linux, supervision et sauvegarde</h1>
+    <p class="meta">Phase 3 — Ce qui fait la différence</p>
+
+    <div class="status-box soon">
+        <span class="status-icon">&#x23F3;</span>
+        <div>
+            <strong>Phase à venir</strong> — Démarrera une fois les services Windows essentiels en place (Phase 2). C'est ici que je sors du tout-Microsoft pour ouvrir l'infra à Linux et à la supervision.
+        </div>
+    </div>
+
+    <div class="block">
+        <h2>Contexte</h2>
+        <p>L'infrastructure Windows de BleuesLatitudes est opérationnelle. Il faut maintenant assurer la disponibilité des services avec une supervision proactive, proposer un hébergement web interne, et mettre en place un plan de sauvegarde pour protéger les données critiques (devis, comptabilité).</p>
+    </div>
+
+    <div class="block">
+        <h2>Objectifs</h2>
+        <ul>
+            <li>Installer et configurer Debian 12 (SRV-LNX01)</li>
+            <li>Déployer un serveur web (Apache ou Nginx)</li>
+            <li>Mettre en place Zabbix pour superviser l'ensemble de l'infrastructure</li>
+            <li>Configurer un plan de sauvegarde avec Windows Server Backup</li>
+        </ul>
+    </div>
+
+    <div class="block">
+        <h2>Démarche prévue</h2>
+        <ul>
+            <li>Création de la VM SRV-LNX01 (Debian 12, 1 Go RAM, IP 192.168.10.11), durcissement de base : SSH par clé, désactivation root, mises à jour automatiques</li>
+            <li>Installation d'Apache (ou Nginx) pour héberger un site interne — page d'accueil minimale présentant les services de l'entreprise</li>
+            <li>Déploiement de Zabbix Server + agent sur les machines Windows et Linux, création de tableaux de bord et alertes (CPU, espace disque, services AD/DNS)</li>
+            <li>Mise en place de Windows Server Backup : sauvegarde planifiée des partages de SRV-FS01 et de l'état système des contrôleurs de domaine, vers un disque dédié</li>
+            <li>Test de restauration partielle — étape souvent oubliée mais qui valide réellement le plan de sauvegarde</li>
+        </ul>
+        <p><em>Cette section sera enrichie avec les captures d'écran et les choix techniques argumentés au fur et à mesure de la réalisation.</em></p>
+    </div>
+
+    <div class="block">
+        <h2>Compétences mobilisées</h2>
+        <ul>
+            <li>Installer et administrer un serveur Linux</li>
+            <li>Déployer un serveur web</li>
+            <li>Mettre en place une solution de supervision</li>
+            <li>Planifier et configurer des sauvegardes</li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    Portfolio BTS SIO SISR &mdash; BleuesLatitudes &mdash; 2026
+</footer>
+
+</body>
+</html>
