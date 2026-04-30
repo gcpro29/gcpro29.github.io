@@ -27,13 +27,13 @@
     <div class="status-box soon">
         <span class="status-icon">&#x23F3;</span>
         <div>
-            <strong>Phase à venir.</strong> Je m'y attaque dès que la Phase 1 est bouclée (OU, groupes, utilisateurs AD, et PC-01 joint au domaine).
+            <strong>Phase à venir.</strong> Je m'y attaque une fois la Phase 1 terminée (OU, groupes, utilisateurs AD, et PC-01 joint au domaine).
         </div>
     </div>
 
     <div class="block">
         <h2>Contexte</h2>
-        <p>Une fois le domaine en place, il faut s'occuper de ce que les utilisateurs vont utiliser tous les jours : un adressage IP automatique pour les postes (DHCP), une résolution de noms fiable (DNS), et surtout un endroit centralisé pour stocker leurs fichiers — devis, plans de piscines, compta — avec des droits qui dépendent du service. Pas question que la compta voie les plans du bureau d'études.</p>
+        <p>Une fois le domaine en place, il faut s'occuper de ce que les utilisateurs vont utiliser au quotidien : un adressage IP automatique pour les postes (DHCP), une résolution de noms fiable (DNS), et surtout un endroit centralisé pour stocker leurs fichiers — devis, plans de piscines, comptabilité — avec des droits qui dépendent du service. Le service comptabilité ne doit pas pouvoir accéder aux plans du bureau d'études, et inversement.</p>
     </div>
 
     <div class="block">
@@ -48,15 +48,15 @@
     </div>
 
     <div class="block">
-        <h2>Comment je vais m'y prendre</h2>
+        <h2>Démarche prévue</h2>
         <ul>
-            <li>D'abord vérifier la zone DNS créée automatiquement avec AD, et ajouter des enregistrements à la main si quelque chose manque</li>
+            <li>Vérifier la zone DNS créée automatiquement avec AD et compléter les enregistrements si nécessaire</li>
             <li>Installer le rôle DHCP sur SRV-DC01, avec une étendue 192.168.10.100-200 réservée aux postes clients</li>
-            <li>Créer la VM SRV-FS01, la joindre au domaine, et lui installer le rôle Services de fichiers</li>
-            <li>Monter l'arborescence des partages : un dossier par service + un dossier commun, avec des droits NTFS qui héritent des groupes AD (et pas posés à la main, sinon c'est ingérable au-delà de quelques utilisateurs)</li>
-            <li>Déployer quelques GPO ciblées par OU : mappage des lecteurs réseau, fond d'écran d'entreprise, verrouillage de session après inactivité, restrictions sur le panneau de configuration</li>
+            <li>Créer la VM SRV-FS01, la joindre au domaine, installer le rôle Services de fichiers</li>
+            <li>Monter l'arborescence des partages : un dossier par service + un dossier commun, avec des droits NTFS hérités des groupes AD (jamais posés à la main, c'est rapidement ingérable au-delà de quelques utilisateurs)</li>
+            <li>Déployer des GPO ciblées par OU : mappage des lecteurs réseau, fond d'écran d'entreprise, verrouillage de session après inactivité, restrictions sur le panneau de configuration</li>
         </ul>
-        <p><em>J'enrichirai cette page avec des captures et les choix techniques au fur et à mesure que je l'attaque.</em></p>
+        <p><em>Cette page sera enrichie avec les captures et les choix techniques au fur et à mesure de la réalisation.</em></p>
     </div>
 
     <div class="block">
