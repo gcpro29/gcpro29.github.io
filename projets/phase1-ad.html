@@ -27,15 +27,14 @@
     <div class="status-box wip">
         <span class="status-icon">&#x1F6A7;</span>
         <div>
-            <strong>Phase en cours</strong> — Domaine <code>bleueslatitudes.local</code> créé.
-            Point bloquant à résoudre : accès administrateur du domaine (résolution prévue via mode DSRM, voir section <em>Avancement détaillé</em>).
-            Étape suivante : création des OU, groupes et utilisateurs des 3 services.
+            <strong>Phase en cours.</strong> Le domaine <code>bleueslatitudes.local</code> est créé.
+            Petit accroc à régler avant la suite : accès admin du domaine bloqué (je passe par le mode DSRM pour réinitialiser, détails plus bas). Une fois débloqué, je m'attaque aux OU, groupes et utilisateurs.
         </div>
     </div>
 
     <div class="block">
         <h2>Contexte</h2>
-        <p>BleuesLatitudes fonctionne en groupe de travail : chaque poste est indépendant, les employés n'ont pas de compte centralisé, et la gestion informatique est inexistante. L'objectif est de mettre en place un domaine Active Directory pour centraliser la gestion des identités et des accès, et préparer le terrain pour les phases suivantes (DHCP, partage de fichiers, GPO).</p>
+        <p>Côté infra, BleuesLatitudes part de zéro : 25 postes en groupe de travail, aucun compte centralisé, aucune sauvegarde, aucune supervision. La toute première brique à poser, c'est un domaine Active Directory. Sans ça, rien d'autre ne tient debout : ni les permissions sur les fichiers (Phase 2), ni les GPO, ni le partage centralisé.</p>
     </div>
 
     <div class="block">
@@ -65,31 +64,32 @@
         <h2>Avancement détaillé</h2>
 
         <h3 style="color:#fafafa; margin-top: 0.5rem;">&#x2705; Étape 1 — Création de la VM SRV-DC01</h3>
-        <p>Création d'une VM Génération 2 sous Hyper-V à partir de l'ISO Windows Server 2025. Le choix de la version 2025 (au lieu de 2022) répond à une logique simple : se former sur la version la plus récente, celle que je rencontrerai en alternance.</p>
+        <p>VM créée sous Hyper-V (Génération 2) à partir de l'ISO Windows Server 2025. J'ai pris la 2025 plutôt que la 2022 pour une raison simple : autant me former sur la dernière version, c'est celle que je vais retrouver en entreprise.</p>
 
-        <h3 style="color:#fafafa;">&#x2705; Étape 2 — Configuration réseau et identité système</h3>
-        <p>Adresse IP fixée à 192.168.10.1/24, DNS pointé sur 127.0.0.1 (le serveur sera son propre DNS une fois promu). Renommage de la machine en SRV-DC01 (convention de nommage du projet) avant la promotion AD — étape importante : on ne renomme pas un contrôleur de domaine après coup sans précautions.</p>
+        <h3 style="color:#fafafa;">&#x2705; Étape 2 — Réseau et identité</h3>
+        <p>IP fixe en 192.168.10.1/24, DNS pointé sur 127.0.0.1 (le serveur sera lui-même DNS une fois promu). J'ai renommé la machine en SRV-DC01 <em>avant</em> la promotion AD : un truc que j'ai retenu, c'est que renommer un contrôleur de domaine après coup, c'est galère. Mieux vaut le faire dans le bon ordre.</p>
 
         <h3 style="color:#fafafa;">&#x2705; Étape 3 — Installation du rôle AD DS</h3>
-        <p>Installation du rôle Active Directory Domain Services via le Gestionnaire de serveur, puis promotion en contrôleur de domaine. Création d'une nouvelle forêt avec le domaine racine <code>bleueslatitudes.local</code> — niveau fonctionnel forêt et domaine Windows Server 2025. Définition du mot de passe DSRM (Directory Services Restore Mode), qui servira à récupérer la main en cas de problème.</p>
+        <p>Installation du rôle AD DS depuis le Gestionnaire de serveur, puis promotion du serveur en contrôleur de domaine. Nouvelle forêt avec <code>bleueslatitudes.local</code> comme domaine racine, niveau fonctionnel Windows Server 2025. J'ai aussi défini le mot de passe DSRM (Directory Services Restore Mode), une sorte de filet de sécurité pour reprendre la main si un jour le compte admin du domaine pose problème. Spoiler : ça arrive plus tôt que prévu, voir juste en dessous.</p>
 
-        <h3 style="color:#fafafa;">&#x26A0;&#xFE0F; Point bloquant — Accès administrateur du domaine</h3>
-        <p>Après promotion, la connexion en tant qu'administrateur du domaine est refusée (mot de passe incorrect). Hypothèses : verrouillage temporaire après plusieurs tentatives, ou écart entre mot de passe noté et mot de passe réellement saisi. <strong>Plan de reprise prévu :</strong> redémarrage en mode DSRM puis réinitialisation du compte Administrator via <code>net user Administrator [nouveau-mdp]</code>, retour en mode normal. C'est précisément à ça que sert le mot de passe DSRM défini à l'étape 3.</p>
+        <h3 style="color:#fafafa;">&#x26A0;&#xFE0F; Point bloquant — Accès admin du domaine</h3>
+        <p>Et là, première vraie difficulté : impossible de me connecter en tant qu'administrateur du domaine. Le mot de passe est refusé. Soit j'ai dépassé le seuil de tentatives et le compte est verrouillé, soit ce que j'ai noté ne correspond pas à ce que j'ai réellement saisi à la promotion (l'erreur est humaine).</p>
+        <p style="margin-top: 0.6rem;"><strong>Plan pour débloquer :</strong> redémarrage en mode DSRM, réinitialisation du compte Administrator via <code>net user Administrator [nouveau-mdp]</code>, puis retour en mode normal. C'est exactement le scénario pour lequel le mot de passe DSRM existe — content de l'avoir défini, sans lui je serais bon pour repartir à zéro.</p>
 
-        <h3 style="color:#fafafa;">&#x23F3; Étape 4 — Création des OU, groupes et utilisateurs <em>(à venir)</em></h3>
-        <p>Prochaine étape : structurer l'annuaire avec une OU par service (Direction, Bureau d'études / Commercial, Administratif), créer les groupes de sécurité associés et les comptes des 25 employés. Cette structuration conditionne la suite : les permissions sur le serveur de fichiers (Phase 2) et les GPO ciblées seront appliquées via ces OU et groupes.</p>
+        <h3 style="color:#fafafa;">&#x23F3; Étape 4 — OU, groupes et utilisateurs <em>(à venir)</em></h3>
+        <p>Une fois l'accès admin récupéré, je structure l'annuaire avec une OU par service (Direction, Bureau d'études / Commercial, Administratif), je crée les groupes de sécurité correspondants et les comptes des 25 employés. Cette étape est cruciale parce que tout ce qui vient après s'appuie dessus : les permissions sur le serveur de fichiers en Phase 2, les GPO ciblées, etc.</p>
 
-        <h3 style="color:#fafafa;">&#x23F3; Étape 5 — Jonction de PC-01 au domaine <em>(à venir)</em></h3>
-        <p>Création de la VM PC-01, configuration réseau, et jonction au domaine pour valider l'authentification centralisée.</p>
+        <h3 style="color:#fafafa;">&#x23F3; Étape 5 — Joindre PC-01 au domaine <em>(à venir)</em></h3>
+        <p>Création de la VM PC-01, config réseau, jonction au domaine. Le but, c'est de vérifier qu'un poste client peut s'authentifier sur le DC avec un compte AD — preuve concrète que tout fonctionne bout en bout.</p>
     </div>
 
     <div class="block">
-        <h2>Ce que j'apprends à cette étape</h2>
+        <h2>Ce que je retiens</h2>
         <ul>
-            <li>Le DNS est indissociable d'AD — un contrôleur de domaine est obligatoirement serveur DNS de la zone.</li>
-            <li>La promotion en contrôleur de domaine est une opération à sens unique : on ne revient pas en arrière à la légère, d'où l'intérêt du mot de passe DSRM.</li>
-            <li>L'ordre des opérations compte : adressage IP → renommage → installation du rôle → promotion. Inverser ces étapes oblige à des manipulations correctives ensuite.</li>
-            <li>Les niveaux fonctionnels (forêt, domaine) déterminent les fonctionnalités disponibles et les versions de DC tolérées dans la forêt.</li>
+            <li>AD et DNS sont indissociables : un contrôleur de domaine est forcément serveur DNS de sa zone, ce n'est pas optionnel.</li>
+            <li>Promouvoir un serveur en DC, ça ne se défait pas à la légère. D'où l'utilité du mot de passe DSRM, justement (et là je suis bien content de l'avoir noté correctement, lui).</li>
+            <li>L'ordre des opérations a son importance : IP fixe → renommage → installation du rôle → promotion. Si on inverse, ce sont des manipulations correctives à faire derrière, jamais propre.</li>
+            <li>Le niveau fonctionnel (forêt, domaine) détermine les fonctionnalités dispo et les versions de DC tolérées dans la forêt. À garder en tête si on doit faire cohabiter plusieurs versions de Windows Server plus tard.</li>
         </ul>
     </div>
 

@@ -27,13 +27,13 @@
     <div class="status-box soon">
         <span class="status-icon">&#x23F3;</span>
         <div>
-            <strong>Phase à venir</strong> — Démarrera à l'achèvement de la Phase 1 (création des OU, groupes et utilisateurs AD, jonction de PC-01 au domaine).
+            <strong>Phase à venir.</strong> Je m'y attaque dès que la Phase 1 est bouclée (OU, groupes, utilisateurs AD, et PC-01 joint au domaine).
         </div>
     </div>
 
     <div class="block">
         <h2>Contexte</h2>
-        <p>Le domaine Active Directory est en place. Les employés de BleuesLatitudes ont besoin d'accéder à leurs fichiers (devis, plans de piscines, documents comptables) de manière centralisée et sécurisée. L'adressage réseau doit être automatisé et la résolution de noms fiable.</p>
+        <p>Une fois le domaine en place, il faut s'occuper de ce que les utilisateurs vont utiliser tous les jours : un adressage IP automatique pour les postes (DHCP), une résolution de noms fiable (DNS), et surtout un endroit centralisé pour stocker leurs fichiers — devis, plans de piscines, compta — avec des droits qui dépendent du service. Pas question que la compta voie les plans du bureau d'études.</p>
     </div>
 
     <div class="block">
@@ -48,15 +48,15 @@
     </div>
 
     <div class="block">
-        <h2>Démarche prévue</h2>
+        <h2>Comment je vais m'y prendre</h2>
         <ul>
-            <li>Vérification de la zone DNS créée automatiquement avec AD, ajout des enregistrements complémentaires si besoin</li>
-            <li>Installation du rôle DHCP sur SRV-DC01, étendue 192.168.10.100-200 réservée aux postes clients</li>
-            <li>Création de la VM SRV-FS01, jonction au domaine, installation du rôle Services de fichiers</li>
-            <li>Construction de l'arborescence des partages métier (un dossier par service + un dossier commun) avec droits NTFS hérités des groupes AD</li>
-            <li>Déploiement de GPO ciblées par OU : mappage des lecteurs réseau, fond d'écran d'entreprise, verrouillage de session, restrictions de panneau de configuration</li>
+            <li>D'abord vérifier la zone DNS créée automatiquement avec AD, et ajouter des enregistrements à la main si quelque chose manque</li>
+            <li>Installer le rôle DHCP sur SRV-DC01, avec une étendue 192.168.10.100-200 réservée aux postes clients</li>
+            <li>Créer la VM SRV-FS01, la joindre au domaine, et lui installer le rôle Services de fichiers</li>
+            <li>Monter l'arborescence des partages : un dossier par service + un dossier commun, avec des droits NTFS qui héritent des groupes AD (et pas posés à la main, sinon c'est ingérable au-delà de quelques utilisateurs)</li>
+            <li>Déployer quelques GPO ciblées par OU : mappage des lecteurs réseau, fond d'écran d'entreprise, verrouillage de session après inactivité, restrictions sur le panneau de configuration</li>
         </ul>
-        <p><em>Cette section sera enrichie avec les captures d'écran et les choix techniques argumentés au fur et à mesure de la réalisation.</em></p>
+        <p><em>J'enrichirai cette page avec des captures et les choix techniques au fur et à mesure que je l'attaque.</em></p>
     </div>
 
     <div class="block">

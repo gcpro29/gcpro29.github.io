@@ -27,13 +27,13 @@
     <div class="status-box soon">
         <span class="status-icon">&#x23F3;</span>
         <div>
-            <strong>Phase à venir</strong> — Phase finale du projet, qui transforme l'infra fonctionnelle en infra <em>maintenable</em> : automatisation, documentation centralisée, durcissement.
+            <strong>Dernière phase.</strong> Une infra qui marche, c'est bien. Une infra qu'on peut maintenir et faire évoluer sans repartir de zéro à chaque fois, c'est mieux. C'est ce que je vise ici : automatiser ce qui peut l'être, documenter, et durcir un peu la sécu.
         </div>
     </div>
 
     <div class="block">
         <h2>Contexte</h2>
-        <p>L'infrastructure de BleuesLatitudes est complète et fonctionnelle. Pour gagner en efficacité et en maintenabilité, on automatise les tâches récurrentes avec PowerShell, on centralise la documentation technique dans un wiki interne, et on renforce la sécurité avec du filtrage réseau.</p>
+        <p>À ce stade, l'infrastructure de BleuesLatitudes tourne. Maintenant je veux la rendre <em>vivable au quotidien</em> : pouvoir créer 10 nouveaux utilisateurs en deux minutes au lieu d'une heure, avoir une doc à jour pour ne pas avoir à se rappeler de tout par cœur, et empêcher quelques bêtises côté réseau.</p>
     </div>
 
     <div class="block">
@@ -46,14 +46,14 @@
     </div>
 
     <div class="block">
-        <h2>Démarche prévue</h2>
+        <h2>Comment je vais m'y prendre</h2>
         <ul>
-            <li>Script PowerShell de création en masse des utilisateurs depuis un CSV (les 25 employés des 3 services), avec affectation automatique aux bons groupes et OU</li>
-            <li>Scripts utilitaires : audit de comptes inactifs, rapport mensuel d'occupation des partages, sauvegarde GPO planifiée</li>
-            <li>Déploiement de BookStack sur SRV-LNX01 (Apache + MySQL + PHP) pour héberger la documentation technique de l'infra : procédures, schémas, mots de passe (sous coffre-fort)</li>
-            <li>Configuration du Pare-feu Windows par GPO et règles inter-VLAN si évolution future</li>
+            <li>Un script PowerShell qui crée les 25 utilisateurs d'un coup à partir d'un CSV, avec affectation automatique aux bons groupes et aux bonnes OU. Au passage, ça évite les fautes de frappe qu'on fait toujours quand on tape 25 fois la même chose à la main.</li>
+            <li>Quelques scripts utilitaires pour la maintenance : audit des comptes inactifs, rapport mensuel d'occupation des partages, sauvegarde planifiée des GPO.</li>
+            <li>Installation de BookStack sur SRV-LNX01 (avec Apache, MySQL et PHP) pour centraliser la doc technique : procédures, schémas, et un coffre-fort pour les mots de passe — pas question de les mettre en clair.</li>
+            <li>Pare-feu Windows piloté par GPO, et quelques règles supplémentaires si l'infra évolue (par exemple en cas de découpage en VLAN plus tard).</li>
         </ul>
-        <p><em>Cette section sera enrichie avec les captures d'écran, les scripts publiés sur GitHub et les choix techniques argumentés au fur et à mesure de la réalisation.</em></p>
+        <p><em>Je remplis cette page au fur et à mesure, et les scripts seront publiés directement sur GitHub.</em></p>
     </div>
 
     <div class="block">

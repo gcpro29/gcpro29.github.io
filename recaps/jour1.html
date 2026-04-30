@@ -230,15 +230,16 @@
     <li>Écran de connexion au domaine affiché ("Connectez-vous à BLEUESLATITUDES")</li>
 </ul>
 
-<h3><span class="badge next">À résoudre</span> Accès administrateur du domaine bloqué</h3>
+<h3><span class="badge next">À résoudre</span> Accès admin du domaine bloqué</h3>
 <div class="section-box">
-    <p>Après la promotion en DC, la connexion en tant qu'administrateur du domaine échoue (mot de passe refusé). Deux hypothèses sont sur la table :</p>
-    <ul style="margin-top: 0.5rem;">
-        <li>Verrouillage temporaire du compte suite à plusieurs tentatives infructueuses</li>
-        <li>Écart entre le mot de passe noté et celui réellement saisi à la promotion</li>
+    <p>Et là, tout va bien jusqu'à ce que je veuille me reconnecter en tant qu'administrateur du domaine après le redémarrage : mot de passe refusé. Je tente plusieurs fois, ça ne passe pas.</p>
+    <p style="margin-top: 0.5rem;">Deux explications possibles :</p>
+    <ul style="margin-top: 0.3rem;">
+        <li>Compte verrouillé après trop de tentatives ratées</li>
+        <li>Le mot de passe que j'ai noté ne correspond pas exactement à celui que j'ai tapé à la promotion (l'erreur est humaine)</li>
     </ul>
-    <p style="margin-top: 0.6rem;"><strong>Plan de reprise :</strong> redémarrer en <strong>mode DSRM</strong> (Directory Services Restore Mode) pour réinitialiser le mot de passe via <code>net user Administrator [nouveau-mdp]</code>, puis revenir en mode normal. C'est précisément l'usage prévu du mot de passe DSRM défini lors de la promotion.</p>
-    <p style="margin-top: 0.6rem;"><em>Cet incident, bien que frustrant, illustre l'importance du mot de passe DSRM et de la rigueur dans la gestion des credentials.</em></p>
+    <p style="margin-top: 0.6rem;"><strong>Comment je vais débloquer :</strong> redémarrer en mode DSRM (Directory Services Restore Mode), me connecter avec le mot de passe DSRM, puis réinitialiser le compte Administrator avec <code>net user Administrator [nouveau-mdp]</code>. Retour en mode normal et c'est bon.</p>
+    <p style="margin-top: 0.6rem;">Au moins, ça m'aura appris à quoi sert vraiment le mot de passe DSRM — et à le noter à part la prochaine fois.</p>
 </div>
 
 <!-- PLAN D'ADRESSAGE -->

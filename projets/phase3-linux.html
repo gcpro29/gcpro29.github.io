@@ -27,13 +27,13 @@
     <div class="status-box soon">
         <span class="status-icon">&#x23F3;</span>
         <div>
-            <strong>Phase à venir</strong> — Démarrera une fois les services Windows essentiels en place (Phase 2). C'est ici que je sors du tout-Microsoft pour ouvrir l'infra à Linux et à la supervision.
+            <strong>Phase à venir.</strong> Je m'y mets une fois les services Windows en place (fin de la Phase 2). C'est ici que je sors du tout-Microsoft pour goûter à Linux et à la supervision, deux trucs incontournables en SISR.
         </div>
     </div>
 
     <div class="block">
         <h2>Contexte</h2>
-        <p>L'infrastructure Windows de BleuesLatitudes est opérationnelle. Il faut maintenant assurer la disponibilité des services avec une supervision proactive, proposer un hébergement web interne, et mettre en place un plan de sauvegarde pour protéger les données critiques (devis, comptabilité).</p>
+        <p>L'infra Windows tourne, les utilisateurs ont leurs partages. Reste à savoir si tout va bien sans avoir à aller vérifier à la main : c'est la supervision. Et reste aussi à pouvoir tout reprendre si un disque lâche : c'est la sauvegarde. J'ajoute aussi un petit serveur web interne pour héberger un wiki et une page d'accueil — sur Linux, parce que c'est plus léger qu'un IIS Windows pour ce besoin.</p>
     </div>
 
     <div class="block">
@@ -47,15 +47,15 @@
     </div>
 
     <div class="block">
-        <h2>Démarche prévue</h2>
+        <h2>Comment je vais m'y prendre</h2>
         <ul>
-            <li>Création de la VM SRV-LNX01 (Debian 12, 1 Go RAM, IP 192.168.10.11), durcissement de base : SSH par clé, désactivation root, mises à jour automatiques</li>
-            <li>Installation d'Apache (ou Nginx) pour héberger un site interne — page d'accueil minimale présentant les services de l'entreprise</li>
-            <li>Déploiement de Zabbix Server + agent sur les machines Windows et Linux, création de tableaux de bord et alertes (CPU, espace disque, services AD/DNS)</li>
-            <li>Mise en place de Windows Server Backup : sauvegarde planifiée des partages de SRV-FS01 et de l'état système des contrôleurs de domaine, vers un disque dédié</li>
-            <li>Test de restauration partielle — étape souvent oubliée mais qui valide réellement le plan de sauvegarde</li>
+            <li>Créer la VM SRV-LNX01 (Debian 12, 1 Go RAM, IP 192.168.10.11) et faire un durcissement de base : SSH par clé, root désactivé, mises à jour automatiques</li>
+            <li>Installer Apache (ou peut-être Nginx, je verrai) pour héberger un petit site interne — au minimum une page d'accueil qui liste les services de l'entreprise</li>
+            <li>Mettre Zabbix Server sur SRV-LNX01, déployer les agents sur les machines Windows et Linux, et monter quelques tableaux de bord et alertes utiles : CPU, espace disque, état des services AD/DNS</li>
+            <li>Configurer Windows Server Backup pour sauvegarder les partages de SRV-FS01 et l'état système du DC vers un disque dédié, en planifié</li>
+            <li>Faire un vrai test de restauration partielle — c'est l'étape que tout le monde zappe, mais c'est la seule qui valide pour de vrai que ta sauvegarde sert à quelque chose</li>
         </ul>
-        <p><em>Cette section sera enrichie avec les captures d'écran et les choix techniques argumentés au fur et à mesure de la réalisation.</em></p>
+        <p><em>Je remplis cette page au fur et à mesure que j'avance.</em></p>
     </div>
 
     <div class="block">
