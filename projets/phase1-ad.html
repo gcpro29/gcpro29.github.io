@@ -33,7 +33,7 @@
 
     <div class="block">
         <h2>Contexte</h2>
-        <p>BleuesLatitudes part de zéro : 25 postes en groupe de travail, pas de gestion centralisée. Je commence par mettre en place un domaine Active Directory. C'est la base de toute la suite (partage de fichiers, GPO, etc.).</p>
+        <p>BleuesLatitudes part de zéro : 25 postes en groupe de travail, pas de gestion centralisée. Mise en place d'un domaine Active Directory en première étape, base de toute la suite (partage de fichiers, GPO, etc.).</p>
     </div>
 
     <div class="block">
@@ -66,20 +66,20 @@
         <p>VM créée sous Hyper-V à partir de l'ISO Windows Server 2025 (version la plus récente, autant me former dessus directement).</p>
 
         <h3 style="color:#fafafa;">&#x2705; Étape 2 — Réseau et identité</h3>
-        <p>IP fixe en 192.168.10.1/24, DNS pointé sur 127.0.0.1 (le serveur sera lui-même DNS plus tard). J'ai renommé la machine en SRV-DC01 avant l'installation d'AD.</p>
+        <p>IP fixe en 192.168.10.1/24, DNS pointé sur 127.0.0.1 (le serveur sera lui-même DNS plus tard). Renommage de la machine en SRV-DC01 avant l'installation d'AD.</p>
 
         <h3 style="color:#fafafa;">&#x2705; Étape 3 — Installation d'Active Directory</h3>
-        <p>Installation du rôle AD DS depuis le Gestionnaire de serveur, puis promotion en contrôleur de domaine. Création du domaine <code>bleueslatitudes.local</code>. J'ai aussi défini un mot de passe DSRM, un mot de passe de secours utile en cas de problème d'accès au compte administrateur.</p>
+        <p>Installation du rôle AD DS depuis le Gestionnaire de serveur, puis promotion en contrôleur de domaine. Création du domaine <code>bleueslatitudes.local</code>. Définition d'un mot de passe DSRM, mot de passe de secours utile en cas de problème d'accès au compte administrateur.</p>
 
         <h3 style="color:#fafafa;">&#x26A0;&#xFE0F; Point bloquant — Accès admin du domaine</h3>
-        <p>Au moment de me reconnecter en tant qu'administrateur du domaine, le mot de passe est refusé. C'est probablement un verrouillage de compte ou un écart entre le mot de passe noté et celui réellement saisi à la promotion.</p>
-        <p style="margin-top: 0.6rem;"><strong>Plan pour débloquer :</strong> redémarrer en mode DSRM (justement prévu pour ce genre de situation), réinitialiser le mot de passe du compte Administrator avec <code>net user Administrator [nouveau-mdp]</code>, puis revenir en mode normal.</p>
+        <p>Au moment de la reconnexion en tant qu'administrateur du domaine, le mot de passe est refusé. Probablement un verrouillage de compte ou un écart entre le mot de passe noté et celui réellement saisi à la promotion.</p>
+        <p style="margin-top: 0.6rem;"><strong>Plan pour débloquer :</strong> redémarrage en mode DSRM (justement prévu pour ce genre de situation), réinitialisation du mot de passe du compte Administrator avec <code>net user Administrator [nouveau-mdp]</code>, puis retour en mode normal.</p>
 
         <h3 style="color:#fafafa;">&#x23F3; Étape 4 — OU, groupes et utilisateurs <em>(à venir)</em></h3>
-        <p>Une fois l'accès récupéré : créer une OU par service (Direction, Bureau d'études / Commercial, Administratif), les groupes de sécurité associés, et les 25 comptes utilisateurs.</p>
+        <p>Une fois l'accès récupéré : création d'une OU par service (Direction, Bureau d'études / Commercial, Administratif), des groupes de sécurité associés et des 25 comptes utilisateurs.</p>
 
         <h3 style="color:#fafafa;">&#x23F3; Étape 5 — Joindre PC-01 au domaine <em>(à venir)</em></h3>
-        <p>Créer la VM PC-01 et la joindre au domaine pour valider qu'un utilisateur peut bien se connecter avec son compte AD.</p>
+        <p>Création de la VM PC-01 et jonction au domaine pour valider qu'un utilisateur peut bien se connecter avec son compte AD.</p>
     </div>
 
     <div class="block">
