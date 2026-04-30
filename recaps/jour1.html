@@ -196,7 +196,7 @@
 <h3><span class="badge done">Fait</span> Préparation de l'environnement Hyper-V</h3>
 <ul>
     <li>Réinitialisation complète de Hyper-V (suppression de 5 anciennes VMs et du switch LAB-NET)</li>
-    <li>Création du switch virtuel interne <strong>LAB-BLEUESLATITUDES</strong></li>
+    <li>Création du switch virtuel interne <strong>BLEUESLAT-NET</strong></li>
 </ul>
 
 <h3><span class="badge done">Fait</span> Création de la VM SRV-DC01</h3>
@@ -207,8 +207,8 @@
     <tr><td>RAM</td><td>2 Go</td></tr>
     <tr><td>Processeurs</td><td>2 vCPU</td></tr>
     <tr><td>Disque dur</td><td>60 Go (VHDX)</td></tr>
-    <tr><td>Stockage</td><td>E:\VM\Hyper V\SRV-DC01</td></tr>
-    <tr><td>Réseau</td><td>LAB-BLEUESLATITUDES</td></tr>
+    <tr><td>Stockage</td><td>E:\LAB\VMs\SRV-DC01</td></tr>
+    <tr><td>Réseau</td><td>BLEUESLAT-NET</td></tr>
     <tr><td>OS</td><td>Windows Server 2025 Standard (Expérience de bureau)</td></tr>
 </table>
 
@@ -227,8 +227,19 @@
     <li>Serveur promu en <strong>contrôleur de domaine</strong></li>
     <li>Nouvelle forêt créée : <strong>bleueslatitudes.local</strong></li>
     <li>Rôle <strong>DNS</strong> installé automatiquement avec AD</li>
-    <li>Connexion vérifiée : écran affiche "Connectez-vous à BLEUESLATITUDES"</li>
+    <li>Écran de connexion au domaine affiché ("Connectez-vous à BLEUESLATITUDES")</li>
 </ul>
+
+<h3><span class="badge next">À résoudre</span> Accès administrateur du domaine bloqué</h3>
+<div class="section-box">
+    <p>Après la promotion en DC, la connexion en tant qu'administrateur du domaine échoue (mot de passe refusé). Deux hypothèses sont sur la table :</p>
+    <ul style="margin-top: 0.5rem;">
+        <li>Verrouillage temporaire du compte suite à plusieurs tentatives infructueuses</li>
+        <li>Écart entre le mot de passe noté et celui réellement saisi à la promotion</li>
+    </ul>
+    <p style="margin-top: 0.6rem;"><strong>Plan de reprise :</strong> redémarrer en <strong>mode DSRM</strong> (Directory Services Restore Mode) pour réinitialiser le mot de passe via <code>net user Administrator [nouveau-mdp]</code>, puis revenir en mode normal. C'est précisément l'usage prévu du mot de passe DSRM défini lors de la promotion.</p>
+    <p style="margin-top: 0.6rem;"><em>Cet incident, bien que frustrant, illustre l'importance du mot de passe DSRM et de la rigueur dans la gestion des credentials.</em></p>
+</div>
 
 <!-- PLAN D'ADRESSAGE -->
 <h2>Plan d'adressage réseau</h2>
@@ -303,7 +314,7 @@
 <div class="section-box">
     <p><span class="badge next">À faire</span></p>
     <ul style="margin-top: 0.5rem;">
-        <li>Créer les 3 Unités d'Organisation (Direction, Commercial, Administratif)</li>
+        <li>Créer les 3 Unités d'Organisation (Direction, Bureau d'études / Commercial, Administratif)</li>
         <li>Créer les groupes de sécurité (GRP_Direction, GRP_Commercial, GRP_Administratif)</li>
         <li>Créer les 25 utilisateurs (script PowerShell)</li>
         <li>Créer la VM PC-01 et la joindre au domaine</li>
@@ -319,7 +330,7 @@
 </div>
 
 <div class="footer">
-    BleuesLatitudes — Projet BTS SIO SISR
+    BleuesLatitudes — Projet BTS SIO SISR — 2026
 </div>
 
 </body>

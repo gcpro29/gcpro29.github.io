@@ -28,6 +28,7 @@
         <span class="status-icon">&#x1F6A7;</span>
         <div>
             <strong>Phase en cours</strong> — Domaine <code>bleueslatitudes.local</code> créé.
+            Point bloquant à résoudre : accès administrateur du domaine (résolution prévue via mode DSRM, voir section <em>Avancement détaillé</em>).
             Étape suivante : création des OU, groupes et utilisateurs des 3 services.
         </div>
     </div>
@@ -64,7 +65,7 @@
         <h2>Avancement détaillé</h2>
 
         <h3 style="color:#fafafa; margin-top: 0.5rem;">&#x2705; Étape 1 — Création de la VM SRV-DC01</h3>
-        <p>Création d'une VM Génération 2 sous Hyper-V à partir de l'ISO Windows Server 2025. Le choix de cette version (la plus récente plutôt qu'une version antérieure) répond à une logique simple : se former sur ce que je rencontrerai en alternance.</p>
+        <p>Création d'une VM Génération 2 sous Hyper-V à partir de l'ISO Windows Server 2025. Le choix de la version 2025 (au lieu de 2022) répond à une logique simple : se former sur la version la plus récente, celle que je rencontrerai en alternance.</p>
 
         <h3 style="color:#fafafa;">&#x2705; Étape 2 — Configuration réseau et identité système</h3>
         <p>Adresse IP fixée à 192.168.10.1/24, DNS pointé sur 127.0.0.1 (le serveur sera son propre DNS une fois promu). Renommage de la machine en SRV-DC01 (convention de nommage du projet) avant la promotion AD — étape importante : on ne renomme pas un contrôleur de domaine après coup sans précautions.</p>
@@ -72,8 +73,11 @@
         <h3 style="color:#fafafa;">&#x2705; Étape 3 — Installation du rôle AD DS</h3>
         <p>Installation du rôle Active Directory Domain Services via le Gestionnaire de serveur, puis promotion en contrôleur de domaine. Création d'une nouvelle forêt avec le domaine racine <code>bleueslatitudes.local</code> — niveau fonctionnel forêt et domaine Windows Server 2025. Définition du mot de passe DSRM (Directory Services Restore Mode), qui servira à récupérer la main en cas de problème.</p>
 
-        <h3 style="color:#fafafa;">&#x1F6A7; Étape 4 — Création des OU, groupes et utilisateurs <em>(en cours)</em></h3>
-        <p>Prochaine étape : structurer l'annuaire avec une OU par service (Direction, Bureau d'études, Administratif), créer les groupes de sécurité associés et les comptes des 25 employés. Cette structuration conditionne la suite : les permissions sur le serveur de fichiers (Phase 2) et les GPO ciblées seront appliquées via ces OU et groupes.</p>
+        <h3 style="color:#fafafa;">&#x26A0;&#xFE0F; Point bloquant — Accès administrateur du domaine</h3>
+        <p>Après promotion, la connexion en tant qu'administrateur du domaine est refusée (mot de passe incorrect). Hypothèses : verrouillage temporaire après plusieurs tentatives, ou écart entre mot de passe noté et mot de passe réellement saisi. <strong>Plan de reprise prévu :</strong> redémarrage en mode DSRM puis réinitialisation du compte Administrator via <code>net user Administrator [nouveau-mdp]</code>, retour en mode normal. C'est précisément à ça que sert le mot de passe DSRM défini à l'étape 3.</p>
+
+        <h3 style="color:#fafafa;">&#x23F3; Étape 4 — Création des OU, groupes et utilisateurs <em>(à venir)</em></h3>
+        <p>Prochaine étape : structurer l'annuaire avec une OU par service (Direction, Bureau d'études / Commercial, Administratif), créer les groupes de sécurité associés et les comptes des 25 employés. Cette structuration conditionne la suite : les permissions sur le serveur de fichiers (Phase 2) et les GPO ciblées seront appliquées via ces OU et groupes.</p>
 
         <h3 style="color:#fafafa;">&#x23F3; Étape 5 — Jonction de PC-01 au domaine <em>(à venir)</em></h3>
         <p>Création de la VM PC-01, configuration réseau, et jonction au domaine pour valider l'authentification centralisée.</p>
@@ -102,7 +106,7 @@
 </div>
 
 <footer>
-    Portfolio BTS SIO SISR &mdash; BleuesLatitudes
+    Portfolio BTS SIO SISR &mdash; BleuesLatitudes &mdash; 2026
 </footer>
 
 </body>
