@@ -251,6 +251,17 @@
             display: inline;
         }
 
+        .skills-subtitle {
+            font-weight: 700;
+            font-size: 0.92rem;
+            color: var(--text);
+            margin: 0.5rem 0 0.25rem 0;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .skills-subtitle:first-of-type { margin-top: 0; }
+
         /* ===== LANGUES / CENTRES INTERET ===== */
         .inline-list {
             font-size: 0.9rem;
@@ -315,7 +326,7 @@
 
             .cv .skills-group { margin-bottom: 0.18rem; }
 
-            .cv p, .cv p.lead, .item-title, .item ul li, .skills-list, .skills-label, .inline-list { color: #000; }
+            .cv p, .cv p.lead, .item-title, .item ul li, .skills-list, .skills-label, .skills-subtitle, .inline-list { color: #000; }
             .item-org, .item-date { color: #333; }
 
             a { color: #000 !important; text-decoration: none !important; }
@@ -368,29 +379,32 @@
     <section>
         <h2>Compétences techniques</h2>
 
+        <p class="skills-subtitle">Pratiquées (lab personnel actif depuis avril 2026)</p>
+
         <div class="skills-group">
             <span class="skills-label">Systèmes :</span>
-            <span class="skills-list">Windows Server 2025, Active Directory (AD DS), Hyper-V, virtualisation, Debian 12, administration Linux (bases).</span>
+            <span class="skills-list">Hyper-V, Windows Server 2025, Active Directory (AD DS), DNS, virtualisation.</span>
         </div>
 
         <div class="skills-group">
             <span class="skills-label">Réseau :</span>
-            <span class="skills-list">TCP/IP, adressage et sous-réseaux, DNS, DHCP, configuration de switch virtuel, segmentation réseau.</span>
+            <span class="skills-list">TCP/IP, adressage et sous-réseaux, configuration de switch virtuel.</span>
         </div>
 
         <div class="skills-group">
-            <span class="skills-label">Sécurité &amp; gestion :</span>
-            <span class="skills-list">Stratégies de groupe (GPO), permissions NTFS, comptes et groupes AD, pare-feu Windows, plan de sauvegarde.</span>
-        </div>
-
-        <div class="skills-group">
-            <span class="skills-label">Scripting &amp; outils :</span>
-            <span class="skills-list">PowerShell (initiation), supervision Zabbix, services web Apache, BookStack, outils d'IA appliqués à l'apprentissage technique (ChatGPT, Claude).</span>
+            <span class="skills-label">Outils :</span>
+            <span class="skills-list">outils d'IA appliqués à l'apprentissage technique (ChatGPT, Claude).</span>
         </div>
 
         <div class="skills-group">
             <span class="skills-label">Bureautique :</span>
             <span class="skills-list">Microsoft Office (Word, Excel), LibreOffice.</span>
+        </div>
+
+        <p class="skills-subtitle">Sujets ciblés par le lab (prochaines étapes)</p>
+
+        <div class="skills-group">
+            <span class="skills-list">DHCP, GPO, permissions NTFS, environnement Linux Debian, supervision (Zabbix), plan de sauvegarde, scripts PowerShell, services web (Apache, BookStack), pare-feu Windows.</span>
         </div>
     </section>
 
